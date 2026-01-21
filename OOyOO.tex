@@ -1,0 +1,426 @@
+\documentclass[10pt, twoside]{article}
+\usepackage[utf8]{inputenc}
+
+\usepackage{graphicx, amssymb, amsmath, geometry, caption, float, enumitem, fancyhdr, biblatex, multicol, subfigure, comment, hyperref, appendix, tasks, xparse, color, tabularx, booktabs, multirow, xfrac, cancel, ragged2e, fixdif, siunitx, soul, wrapfig, iftex, mathtools, etoolbox, pgfplots, etoc, bm, fontsize, bbm}
+
+\usepackage[skip=10pt]{parskip}
+
+%\usepackage[position=below,belowskip=0pt plus 0pt minus 0pt,aboveskip=0pt]{caption} %esto para nuevos documentos irá bien
+
+%\addtolength\belowcaptionskip{-20pt}
+
+\usepackage[symbol, perpage]{footmisc}
+\usepackage[spanish.es]{babel}
+\usepackage[dvipsnames]{xcolor}
+
+\usepackage{STY/EPN, STY/slashbox}
+
+%=================== Formato de los entornos ===================%
+
+\renewcommand{\labelenumii}{\arabic{enumi}.\arabic{enumii}}
+\renewcommand{\labelenumiii}{\arabic{enumi}.\arabic{enumii}.\arabic{enumiii}}
+
+\renewcommand{\contentsname}{Índice}
+
+\renewcommand{\figurename}{\small Fig}
+\counterwithin*{figure}{subsubsection}
+\renewcommand{\thefigure}{\small \arabic{section}.\arabic{subsection}.\arabic{subsubsection}.\arabic{figure}}
+\captionsetup[figure]{name=Fig}
+%\captionsetup[figure]{margin={.1\textwidth,.1\textwidth}} %activar para nuevos documentos
+
+\DeclareCaptionFormat{custom}
+{
+	\small#1#2 #3
+}
+
+\captionsetup{format=custom}
+
+\counterwithin*{table}{section}
+\captionsetup[table]{name=Tabla}
+\renewcommand{\thetable}{\arabic{section}.\arabic{table}}
+
+\numberwithin{equation}{subsection}
+
+\title{}
+
+\newcommand{\sectiontoc}{%
+	\begingroup
+	\parbox[b]{0.96\textwidth}{
+		\etocsettocstyle{\hrulefill}{\vspace{-0.5em} \hrulefill}%
+		\etocsetstyle{subsection}
+		{\begin{enumerate}}
+			{\normalsize\bfseries\rmfamily\item}
+			{\etocname{}\dotfill\etocpage}
+			{\end{enumerate}}
+		\etocsetstyle{subsubsection}
+		{\begin{enumerate}}
+			{\normalsize\bfseries\rmfamily\item\normalfont}
+			{\etocname{}\dotfill\etocpage}
+			{\end{enumerate}}
+		\localtableofcontents
+	}
+	\endgroup
+}
+
+%=================== Añade Otro nivel de sección ===================%
+
+\usepackage{titlesec}
+\titleformat{\paragraph}
+{\normalfont\normalsize\bfseries}{\theparagraph}{1em}{}
+\titlespacing*{\paragraph}
+{0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
+
+\makeatletter
+
+\renewcommand\paragraph{\@startsection{paragraph}{4}{\z@}%
+	{-2.5ex\@plus -1ex \@minus -.25ex}%
+	{1.25ex \@plus .25ex}%
+	{\normalfont\normalsize\bfseries}}
+
+\RenewDocumentCommand{\eqref}{mo}{\IfNoValueTF{#2}
+	{\textcolor{blue}{\textup{\tagform@{\ref{#1}}}}}
+	{\textcolor{blue}{\textup{\tagform@{\ref{#1}\ -\ \ref{#2}}}}}}
+
+\makeatother
+
+\makeatletter
+
+\RenewDocumentCommand{\figref}{O{}m}{\textcolor{blue}{\textup{\tagform@{Fig. \ref{#2} #1}}}}
+
+\NewDocumentCommand{\tabref}{O{}m}{\textcolor{blue}{\textup{\tagform@{Tabla \ref{#2} #1}}}}
+
+\makeatother
+
+\setcounter{secnumdepth}{4} % how many sectioning levels to assign numbers to
+
+%=================== Paquetes para DF ===================%
+
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric, arrows}
+
+\tikzstyle{startstop} = [rectangle, rounded corners, 
+minimum width=3cm, 
+minimum height=1cm,
+text centered, 
+draw=black, 
+fill=red!30]
+\tikzstyle{io} = [trapezium, 
+trapezium stretches=true, % A later addition
+trapezium left angle=70, 
+trapezium right angle=110, 
+minimum width=3cm, 
+minimum height=1cm, text centered, 
+draw=black, fill=blue!30]
+\tikzstyle{process} = [rectangle, 
+minimum width=3cm, 
+minimum height=1cm, 
+text centered, 
+text width=3cm, 
+draw=black, 
+fill=orange!30]
+\tikzstyle{decision} = [diamond, 
+minimum width=3cm, 
+minimum height=1cm, 
+text centered, 
+draw=black, 
+fill=green!30]
+\tikzstyle{arrow} = [thick,->,>=stealth]
+
+%======================================%
+
+\asignatura{Oscilaciones y Ondas} %Texto en la parte derecha abajo
+\carrera{Grado en física}
+\titulo{Apuntes Oscilaciones y Ondas}
+\grupo{Grupo BL3}
+\alumno{Navarro Bonanad, Rubén}
+\profesor{Martín Lozano, Víctor}
+
+%===================  Comandos sin argumentos de entrada  ===================%
+
+\newcommand{\comp}{\mathbb{C}}
+\newcommand{\re}{\mathbb{R}}
+\newcommand{\Tma}{T$^{\underline{ma}}$ }
+\newcommand{\Ham}{\mathcal{H}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Lagr}{\mathcal{L}}
+\newcommand{\dbar}{{\mathrm{d}\mkern-7mu\mathchar'26\mkern-2mu}}
+\newcommand{\grad}{\vec{\nabla}}
+\newcommand{\incorrecto}{\textcolor{red}{$\times$}}
+\newcommand{\correcto}{\textcolor{ForestGreen}{\checkmark}}
+\newcommand{\vsec}[1]{\textcolor{blue}{(v. \textsection #1)}}
+\renewcommand{\secref}[1]{\textcolor{blue}{ \textsection #1}}
+\newcommand{\vtema}[1]{\textcolor{blue}{(v. Tema #1)}}
+
+
+%===================  Comandos con argumentos de entrada  ===================%
+
+\newcommand{\Cancel}[2][black]{{\color{#1}\cancel{\color{black}#2}}}
+\newcommand{\CR}{\stackrel{\mathclap{\normalfont\mbox{CR}}}{=}}
+\newcommand{\geneq}[2]{\stackrel{\mathclap{\normalfont\mbox{#2}}}{#1}}
+\newcommand{\cancelcolor}[2]{\textcolor{#1}{\cancel{\textcolor{black}{#2}}}}
+\newcommand{\quot}[1]{\textquotedblleft #1\textquotedblright}
+\newcommand{\azul}[1]{\textcolor{blue}{#1}}
+\newcommand*\circled[1]{\tikz[baseline=(char.base)]{
+		\node[shape=circle,draw,inner sep=2pt] (char) {#1};}}
+
+%===============  Comandos con argumentos de entrada opcionales  ===============%
+
+\NewDocumentCommand{\partder}{omm}{
+	\IfNoValueTF{#1}
+	{\dfrac{\partial#2}{\partial #3}}
+	{\dfrac{\partial^{#1}#2}{\partial #3^{#1}}}
+}
+
+\NewDocumentCommand{\spartder}{omm}{
+	\IfNoValueTF{#1}
+	{\sfrac{\partial#2}{\partial #3}}
+	{\sfrac{\partial^{#1}#2}{\partial #3^{#1}}}
+}
+
+\NewDocumentCommand{\der}{omm}{
+	\IfNoValueTF{#1}
+	{\frac{\d#2}{\d #3}}
+	{\frac{\d^{#1}#2}{\d #3^{#1}}}
+}
+
+\NewDocumentCommand{\pdv}{ommm}{
+	\IfNoValueTF{#1}
+	{\left(\partder{#2}{#3}\right)_{#4}}
+	{\left(\partder[#1]{#2}{#3}\right)_{#4}}
+}
+
+\NewDocumentCommand{\spdv}{ommm}{
+	\IfNoValueTF{#1}
+	{\left(\spartder{#2}{#3}\right)_{#4}}
+	{\left(\spartder[#1]{#2}{#3}\right)_{#4}}
+}
+
+\NewDocumentCommand{\sech}{O{}}{\ \text{sech}^{#1}\ }
+\NewDocumentCommand{\cosech}{O{}}{\ \text{sech}^{#1}\ }
+
+\newcommand{\defs}{\geneq{=}{\text{\tiny def}}}
+
+\newcommand{\repeq}[1]{\tag*{\normalfont(\ref{#1})\makebox[0pt][l]{\textsubscript{r}}}}
+
+\tikzset{
+	main node/.style={inner sep=0,outer sep=0},
+	label node/.style={inner sep=0,outer ysep=.2em,outer xsep=.4em,font=\scriptsize,overlay},
+	strike out/.style={shorten <=-.2em,shorten >=-.5em,overlay}
+}
+\newcommand{\bcancelto}[3][]{\tikz[baseline=(N.base)]{
+		\node[main node](N){$#2$};
+		\node[label node,#1, anchor=north west] at (N.south east){$#3$};
+		\draw[strike out,-latex,#1]  (N.north west) -- (N.south east);
+}}
+
+%===================  Definición de entornos  ===================%
+
+\newcounter{colorequation}
+\counterwithin*{colorequation}{subsubsection}
+
+\newenvironment{colorequation}[2][black]{
+	\stepcounter{colorequation}
+	\begin{equation}
+		#2 \tag*{\textcolor{#1}{(\thesubsubsection.\thecolorequation)}}
+\end{equation}}
+
+%========= inclusión de nuevas fuentes =========%
+
+\iftutex
+\usepackage{fontspec}
+\usepackage[T1]{fontenc}
+\usepackage{tgchorus}
+
+\defaultfontfeatures{ Scale=MatchLowercase, Ligatures=TeX }
+\newfontfamily\qtbrush{QT Brush Stroke}
+\else
+\newcommand\qtbrush{\usefont{T1}{pbsi}{xl}{n}}
+\fi
+
+\DeclareSymbolFont{qtbrush}       {T1}{pbsi}{xl}{n}
+\DeclareMathSymbol\qtbrushm{\mathalpha}{qtbrush}{`\m}
+\DeclareMathSymbol\qtbrushM{\mathalpha}{qtbrush}{`\M}
+
+%=================== Cambio de fuentes y declaración de símbolos ===================%
+
+\usepackage{hyperref, color}
+\hypersetup{
+	linktocpage=true,
+	colorlinks=true,
+	linkcolor=blue,
+}
+
+%\DeclareSymbolFont{molarvolume}{OT1}{ptm}{m}{it}
+\DeclareSymbolFont{doubleu}{OT1}{ptm}{m}{it}
+%\DeclareSymbolFont{why}{OT1}{ptm}{m}{it}
+\DeclareSymbolFont{zed}{T1}{fvm}{m}{n}
+\DeclareMathSymbol{\zed}{\mathalpha}{zed}{`z}
+%\DeclareMathSymbol{v}{\mathalpha}{molarvolume}{`v}
+\DeclareMathSymbol{w}{\mathalpha}{doubleu}{`w}
+%\DeclareMathSymbol{y}{\mathalpha}{why}{`y}
+\DeclareMathOperator\artanh{artanh}
+
+\captionsetup[figure]{margin={.05\textwidth,.05\textwidth}}
+\captionsetup[table]{margin={.05\textwidth,.05\textwidth}}
+
+
+
+\begin{document}
+	
+\maketitlepage
+	
+\newpage
+	
+\pagestyle{fancy}
+\fancyhead{} 
+\fancyhead[L]{\footnotesize \nouppercase{\leftmark\hfill}}
+\fancyhead[R]{\footnotesize Navarro Bonanad, Rubén}
+	
+%\fancyhead[EL, OR]{\footnotesize \nouppercase{\hyperlink{section.\thesection}{\leftmark}}}
+%\fancyhead[ER, OL]{\footnotesize Navarro Bonanad, Rubén}
+	
+%Esto hace que el encabezado en páginas pares e impares sea distinto, por si se desea imprimir a doble cara, quedaría mejor
+	
+\setcounter{tocdepth}{2}    % how many sectioning levels to show in ToC
+	
+\hypertarget{toc}{\tableofcontents}
+	
+\newpage
+	
+	
+	
+\fancyhead[L]{\footnotesize \nouppercase{\hyperlink{section.\thesection}{\leftmark}\hfill} \\ \nouppercase{\rightmark\hfill}}
+\fancyhead[R]{\footnotesize \nouppercase{\hyperlink{toc}{Índice}} \\  Navarro Bonanad, Rubén}
+	
+%\fancyhead[ER, OL]{\footnotesize \nouppercase{\hyperlink{section.\thesection}{\leftmark}\hfill} \\ \nouppercase{\rightmark}}
+	
+%nuevamente, encabezado basado en la paridad
+	
+\justifying
+	
+\setcounter{tocdepth}{3}
+
+
+	
+\section{Oscilaciones simples}
+
+\sectiontoc
+
+Motivación para estudiar ondas: Puede definirse una onda como una colección de oscilaciones correlacionadas
+
+\subsection{Movimiento armónico simple}
+
+\input{T1/Mvmto_arm_simple}
+
+\subsection{Oscilador armónico en 2-Dimensiones}
+
+\input{T1/dos_dim}
+
+\subsection{Oscilaciones amortiguadas}
+
+\input{T1/amort}
+
+\subsection{Formulación Lagrangiana O.A.}
+
+\input{T1/Lagr}
+
+\newpage
+
+
+
+\section{Oscilaciones forzadas}
+
+\sectiontoc
+
+\subsection{Fuerza sinusoidal}
+
+\input{T2/fza_sin}
+
+\subsection{Fuerza periódica}
+
+\input{T2/fza_per}
+
+\subsection{Fuerza no periódica}
+
+\input{T2/fza_no_per}
+
+\newpage
+
+
+
+\section{Oscilaciones acopladas}
+
+\sectiontoc
+
+\subsection{Acoplamiento de dos osciladores}
+
+\input{T3/T3.1}
+
+\subsection{Acoplamiento débil entre masas}
+
+\input{T3/acop_deb_mas}
+
+\subsection{Sistema de infinitos osciladores}
+
+\input{T3/inf_osc}
+
+\newpage
+
+
+
+\section{Ecuación de ondas}
+
+\sectiontoc
+
+Una onda es una perturbación dinámica que se propaga sobre un medio en equilibrio de una o más magnitudes físicas. Las ondas se producen en el medio sin importar su naturaleza. Estos medios pueden ser diversos, tales como el aire o un metal para el caso del sonido, el vacío en el caso de las OEM o un campo de espines alineados. Otra cualidad importante es que la perturbación es dinámica propagándose en el espacio-tiempo de acuerdo a la ecuación de ondas.
+
+Hay dos comportamientos básicos en las ondas, las \textbf{ondas progresivas} (viajan en el espacio) y las \textbf{ondas estacionarias} (su movimiento se repite en la misma región del espacio). Las ondas progresivas pueden formar sistemas dispersivos y no dispersivos.
+
+\begin{itemize}
+	\item \textbf{Sistemas no dispersivos}: Todas las ondas viajan con la misma velocidad independiente de la longitud de onda y su frecuencia. Éstas son las ondas que se han visto hasta ahora en dónde la velocidad de propagación de la onda depende del medio y no de las características de la onda.
+	
+	\item \textbf{Sistemas dispersivos}: En estos sistemas la velocidad de una onda depende de su longitud de onda. De aquí surge un nuevo concepto que es la \textbf{velocidad de grupo}.
+\end{itemize}
+
+\subsection{Ondas estacionarias en una dimensión}
+
+\input{T4/T4.1}
+
+\subsection{Instrumentos de viento}
+
+\input{T4/viento}
+
+\subsection{Ondas progresivas. Reflexión y transmisión}
+
+\input{T4/ond_prog}
+
+\subsection{Energía}
+
+\input{T4/energia}
+
+\subsection{Amortiguamiento}
+
+\input{T4/amor}
+
+\subsubsection{Medios dispersivos}
+
+\input{T4/disp}
+
+\newpage
+
+
+
+\section{Ondas progresivas}
+
+\sectiontoc
+
+\subsection{}
+
+\input{}
+
+
+	
+
+\end{document}
