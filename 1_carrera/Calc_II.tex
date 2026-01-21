@@ -1,0 +1,152 @@
+\documentclass{article}
+\usepackage{graphicx, amsmath, amsthm, amssymb, tikz, mathtools, cancel, indentfirst, mdframed, enumerate, xcolor, multicol, comment, geometry}
+\usepackage{fancyhdr}
+
+\newcommand*\circled[1]{\tikz[baseline=(char.base)]{
+            \node[shape=circle,draw,inner sep=2pt] (char) {#1};}}
+
+\newcommand{\comp}{\mathbb{C}}
+\newcommand{\re}{\mathbb{R}}
+\newcommand{\Tma}{T$^{\underline{ma}}$ }
+\newcommand{\Tmas}{T$^{\underline{mas}}$ }
+\renewcommand{\contentsname}{\center{Índice}}
+\newcommand{\partder}[2]{\frac{\partial #1}{\partial #2}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Cancel}[2][black]{{\color{#1}\cancel{\color{black}#2}}}
+\newcommand{\CR}{\stackrel{\mathclap{\normalfont\mbox{CR}}}{=}}
+\newcommand{\geneq}[2]{\stackrel{\mathclap{\normalfont\mbox{#2}}}{#1}}
+
+\tikzset{
+main node/.style={inner sep=0,outer sep=0},
+label node/.style={inner sep=0,outer ysep=.2em,outer xsep=.4em,font=\scriptsize,overlay},
+strike out/.style={shorten <=-.2em,shorten >=-.5em,overlay}
+}
+\newcommand{\bcancelto}[3][]{\tikz[baseline=(N.base)]{
+  \node[main node](N){$#2$};
+  \node[label node,#1, anchor=north west] at (N.south east){$#3$};
+  \draw[strike out,-latex,#1]  (N.north west) -- (N.south east);
+}}
+
+\usepackage{hyperref, color}
+\hypersetup{
+    linktocpage=true,
+    colorlinks=false,
+    linkcolor=blue,
+    }
+
+\title{Cálculo II}
+\author{Apuntes de Rubén Navarro Bonanad basados en las transparencias y clases \\ de cálculo II de la UV realizadas por Domingo Martínez García}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+
+\pagebreak
+
+\pagestyle{fancy}
+\fancyhead{} 
+\fancyhead[L]{\nouppercase{\leftmark\hfill} \\ \nouppercase{\rightmark\hfill}}
+\fancyhead[R]{Apuntes Cálculo II \\ Rubén Navarro Bonanad}
+
+\section{Complementos de cálculo diferencial en $\re^n$}
+
+\subsection{Derivación de funciones compuestas. Regla de la cadena.}
+
+\input{Tema 1/cadena}
+
+\subsection{Derivadas direccionales y gradiente.}
+
+\input{Tema 1/direc_grad}
+
+\subsection{\Tmas de la función implícita e inversa.}
+
+\input{Tema 1/func_imp_inv}
+
+\pagebreak
+
+\section{Derivadas de orden superior. Extremos}
+
+\subsection{Derivadas de orden superior. Fórmula de Taylor en $\re^n$.}
+
+\input{Tema 2/ord_sup_Taylor}
+
+\subsection{Valores extremos y puntos de silla. Matriz Hessiana.}
+
+\input{Tema 2/ext_Hess}
+
+\subsection{Extremos condicionados. Multiplicadores de Lagrange.}
+
+\input{Tema 2/cond_Lag}
+
+\pagebreak
+
+\section{Integrales múltiples}
+
+\subsection{Integrales dobles sobre un rectángulo.}
+
+\input{Tema 3/dob_rec}
+
+\subsection{Integrales dobles sobre regiones elementales.}
+
+\input{Tema 3/dob_elem}
+
+\subsection{Cambio de variable en la integral doble. Coordenadas polares.}
+
+\input{Tema 3/cambio_doble}
+
+\subsection{Integrales triples.}
+
+\input{Tema 3/triple}
+
+\subsection{Cambio de variable en la integral triple. Coordenadas cilíndricas y esféricas.}
+
+\input{Tema 3/cambio_triple}
+
+\subsection{Aplicaciones de las integrales múltiples.}
+
+\input{Tema 3/aplicaciones}
+
+\pagebreak
+
+\section{Campos vectoriales. Cálculo vectorial}
+
+\subsection{Campos vectoriales.}
+
+\input{Tema 4/camp_vect}
+
+\subsection{Operadores diferenciales.}
+
+\input{Tema 4/op_dif}
+
+\subsection{Coordenadas curvilíneas. Vectores y operadores.}
+
+\input{Tema 4/coord_curv}
+
+\pagebreak
+
+\section{Integrales curvilíneas y de superficie}
+
+\subsection{Integrales de línea.}
+
+\input{Tema 5/linea}
+
+\subsection{Integrales de superficie.}
+
+\input{Tema 5/sup}
+
+\subsection{\Tma de Green en el plano.}
+
+\input{Tema 5/Green}
+
+\subsection{\Tma de Stokes}
+
+\input{Tema 5/Stokes}
+
+\subsection{\Tma de Gauss-Ostrogradski.}
+
+\input{Tema 5/Gauss}
+
+\end{document}
